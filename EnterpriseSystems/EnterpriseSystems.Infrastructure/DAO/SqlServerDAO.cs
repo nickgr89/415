@@ -33,7 +33,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
             }
         }
 
-        public List<CustomerRequestVO> GetCustomerRequestsByReferenceNumber(string referenceNumber)
+        public List<CustomerRequestVO> GetCustomerRequestsByReferenceNumber(ReferenceNumberVO referenceNumber)
         {
             const string selectQueryStatement = "SELECT A.* FROM CUS_REQ A, REQ_ETY_REF_NBR B WHERE "
                                     + "B.ETY_NM = 'CUS_REQ' AND B.ETY_KEY_I = A.CUS_REQ_I AND "
@@ -260,7 +260,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
 
-                //referenceNumber.CustomerRequests = GetCustomerRequestsByReferenceNumber(referenceNumber);
+                referenceNumber.CustomerRequests = GetCustomerRequestsByReferenceNumber(referenceNumber);
                 referenceNumbers.Add(referenceNumber);
             }
             return referenceNumbers;
