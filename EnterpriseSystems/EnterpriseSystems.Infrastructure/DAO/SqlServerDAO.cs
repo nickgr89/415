@@ -51,7 +51,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     queryResult.Load(sqlReader);
                 }
 
-                var customerRequestByReferenceNumber = BuildCustomerRequests(queryResult).FirstOrDefault();
+                var customerRequestByReferenceNumber = BuildCustomerRequests(queryResult);
 
                 return customerRequestByReferenceNumber;
             }
@@ -63,7 +63,23 @@ namespace EnterpriseSystems.Infrastructure.DAO
                         + "A.BUS_UNT_KEY_CH = @BUS_UNT_KEY_CH AND B.ETY_NM = 'CUS_REQ' "
                         + "AND B.ETY_KEY_I = A.CUS_REQ_I AND B.REF_NBR = @REF_NBR";
 
-            throw new NotImplementedException();
+            using (SqlConnection defaultSqlConnection = new SqlConnection(DatabaseConnectionString))
+            {
+                defaultSqlConnection.Open();
+                DataTable queryResult = new DataTable();
+
+                using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
+                {
+                    queryCommand.Parameters.AddWithValue("@REF_NBR", referenceNumber);
+                    queryCommand.Parameters.AddWithValue("@BUS_UNT_KEY_CH", businessName);
+                    var sqlReader = queryCommand.ExecuteReader();
+                    queryResult.Load(sqlReader);
+                }
+
+                var customerRequestByReferenceNumberAndBusinessName = BuildCustomerRequests(queryResult);
+
+                return customerRequestByReferenceNumberAndBusinessName;
+            }
         }
 
         private List<CustomerRequestVO> BuildCustomerRequests(DataTable dataTable)
@@ -103,7 +119,22 @@ namespace EnterpriseSystems.Infrastructure.DAO
         {
             const string selectQueryStatement = "SELECT * FROM REQ_ETY_SCH WHERE ETY_NM = 'CUS_REQ' AND ETY_KEY_I = @CUS_REQ_I";
 
-            throw new NotImplementedException();
+            using (SqlConnection defaultSqlConnection = new SqlConnection(DatabaseConnectionString))
+            {
+                defaultSqlConnection.Open();
+                DataTable queryResult = new DataTable();
+
+                using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
+                {
+                    queryCommand.Parameters.AddWithValue("@Cus_REQ_I", customerRequest);
+                    var sqlReader = queryCommand.ExecuteReader();
+                    queryResult.Load(sqlReader);
+                }
+
+                var appointmentsByCustomerRequest = BuildAppointments(queryResult);
+
+                return appointmentsByCustomerRequest;
+            }
         }
 
         private List<AppointmentVO> BuildAppointments(DataTable dataTable)
@@ -119,17 +150,18 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     EntityIdentity = (int)currentRow["ETY_KEY_I"],
                     SequenceNumber = (int)currentRow["SEQ_NBR"],
                     FunctionType = currentRow["SCH_FUN_TYP"].ToString(),
-                    ApptBegin = (DateTime?)currentRow["BEG_S"],
-                    ApptEnd = (DateTime?)currentRow["END_S"],
-                    TimeZone = currentRow["TZ_TYP_DSC"].ToString(),
+                    AppointmentBegin = (DateTime?)currentRow["BEG_S"],
+                    AppointmentEnd = (DateTime?)currentRow["END_S"],
+                    TimeZoneDescription = currentRow["TZ_TYP_DSC"].ToString(),
                     Status = currentRow["PRS_STT"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserid = currentRow["CRT_UID"].ToString(),
+                    CreatedUserId = currentRow["CRT_UID"].ToString(),
                     CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
                     LastUpdatedDate = (DateTime?)currentRow["LAST_UPD_S"],
-                    LastUpdatedUserid = currentRow["LAST_UPD_UID"].ToString(),
+                    LastUpdatedUserId = currentRow["LAST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
+
                 appointments.Add(appointment);
             }
             return appointments;
@@ -140,7 +172,22 @@ namespace EnterpriseSystems.Infrastructure.DAO
         {
             const string selectQueryStatement = "SELECT * FROM REQ_ETY_CMM WHERE ETY_NM = 'CUS_REQ' AND ETY_KEY_I = @CUS_REQ_I";
 
-            throw new NotImplementedException();
+            using (SqlConnection defaultSqlConnection = new SqlConnection(DatabaseConnectionString))
+            {
+                defaultSqlConnection.Open();
+                DataTable queryResult = new DataTable();
+
+                using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
+                {
+                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest);
+                    var sqlReader = queryCommand.ExecuteReader();
+                    queryResult.Load(sqlReader);
+                }
+
+                var commentsByCustomerRequest = BuildComments(queryResult);
+
+                return commentsByCustomerRequest;
+            }
         }
 
         private List<CommentVO> BuildComments(DataTable dataTable)
@@ -158,10 +205,10 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     CommentType = currentRow["CMM_TYP"].ToString(),
                     CommentText = currentRow["CMM_TXT"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserid = currentRow["CRT_UID"].ToString(),
+                    CreatedUserId = currentRow["CRT_UID"].ToString(),
                     CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
                     LastUpdatedDate = (DateTime?)currentRow["LAST_UPD_S"],
-                    LastUpdatedUserid = currentRow["LAST_UPD_UID"].ToString(),
+                    LastUpdatedUserId = currentRow["LAST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
                 comments.Add(comment);
@@ -174,7 +221,22 @@ namespace EnterpriseSystems.Infrastructure.DAO
         {
             const string selectQueryStatement = "SELECT * FROM REQ_ETY_REF_NBR WHERE ETY_NM = 'CUS_REQ' AND ETY_KEY_I = @CUS_REQ_I";
 
-            throw new NotImplementedException();
+            using (SqlConnection defaultSqlConnection = new SqlConnection(DatabaseConnectionString))
+            {
+                defaultSqlConnection.Open();
+                DataTable queryResult = new DataTable();
+
+                using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
+                {
+                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest);
+                    var sqlReader = queryCommand.ExecuteReader();
+                    queryResult.Load(sqlReader);
+                }
+
+                var referenceNumberByCustomerRequest = BuildReferenceNumbers(queryResult);
+
+                return referenceNumberByCustomerRequest;
+            }
         }
 
         private List<ReferenceNumberVO> BuildReferenceNumbers(DataTable dataTable)
@@ -191,23 +253,41 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     SoutheasternReferenceNumberType = currentRow["SLU_REF_NBR_TYP"].ToString(),
                     ReferenceNumber = currentRow["REF_NBR"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserid = currentRow["CRT_UID"].ToString(),
+                    CreatedUserId = currentRow["CRT_UID"].ToString(),
                     CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
                     LastUpdatedDate = (DateTime?)currentRow["LAST_UPD_S"],
-                    LastUpdatedUserid = currentRow["LAST_UPD_UID"].ToString(),
+                    LastUpdatedUserId = currentRow["LAST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
+
+                //referenceNumber.CustomerRequests = GetCustomerRequestsByReferenceNumber(referenceNumber);
                 referenceNumbers.Add(referenceNumber);
             }
             return referenceNumbers;
         }
 
 
+
         private List<StopVO> GetStopsByCustomerRequest(CustomerRequestVO customerRequest)
         {
             const string selectQueryStatement = "SELECT * FROM REQ_ETY_OGN WHERE ETY_NM = 'CUS_REQ' AND ETY_KEY_I = @CUS_REQ_I";
 
-            throw new NotImplementedException();
+            using (SqlConnection defaultSqlConnection = new SqlConnection(DatabaseConnectionString))
+            {
+                defaultSqlConnection.Open();
+                DataTable queryResult = new DataTable();
+
+                using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
+                {
+                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest);
+                    var sqlReader = queryCommand.ExecuteReader();
+                    queryResult.Load(sqlReader);
+                }
+
+                var stopsByCustomerRequest = BuildStops(queryResult);
+
+                return stopsByCustomerRequest;
+            }
         }
 
         private List<StopVO> BuildStops(DataTable dataTable)
@@ -232,10 +312,10 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     AddressCountryCode = currentRow["ADR_CRV_C"].ToString(),
                     AddressPostalCode = currentRow["ADR_PST_C_SRG"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserid = currentRow["CRT_UID"].ToString(),
+                    CreatedUserId = currentRow["CRT_UID"].ToString(),
                     CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
                     LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
-                    LastUpdatedUserid = currentRow["LST_UPD_UID"].ToString(),
+                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
                 stop.Appointments = GetAppointmentsByStop(stop);
@@ -251,14 +331,44 @@ namespace EnterpriseSystems.Infrastructure.DAO
         {
             const string selectQueryStatement = "SELECT * FROM REQ_ETY_SCH WHERE ETY_NM = 'REQ_ETY_OGN' AND ETY_KEY_I = @REQ_ETY_OGN_I";
 
-            throw new NotImplementedException();
+            using (SqlConnection defaultSqlConnection = new SqlConnection(DatabaseConnectionString))
+            {
+                defaultSqlConnection.Open();
+                DataTable queryResult = new DataTable();
+
+                using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
+                {
+                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop);
+                    var sqlReader = queryCommand.ExecuteReader();
+                    queryResult.Load(sqlReader);
+                }
+
+                var appointmentsByStop = BuildAppointments(queryResult);
+
+                return appointmentsByStop;
+            }
         }
 
         private List<CommentVO> GetCommentsByStop(StopVO stop)
         {
             const string selectQueryStatement = "SELECT * FROM REQ_ETY_CMM WHERE ETY_NM = 'REQ_ETY_OGN' AND ETY_KEY_I = @REQ_ETY_OGN_I";
 
-            throw new NotImplementedException();
+            using (SqlConnection defaultSqlConnection = new SqlConnection(DatabaseConnectionString))
+            {
+                defaultSqlConnection.Open();
+                DataTable queryResult = new DataTable();
+
+                using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
+                {
+                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop);
+                    var sqlReader = queryCommand.ExecuteReader();
+                    queryResult.Load(sqlReader);
+                }
+
+                var commentsByStop = BuildComments(queryResult);
+
+                return commentsByStop;
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ namespace EnterpriseSystems.Infrastructure.Model.Entities
         public string AddressStateCode { get; set; }
         public string AddressCountryCode { get; set; }
         public string AddressPostalCode { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string CreatedUserId { get; set; }
         public string CreatedProgramCode { get; set; }
         public DateTime? LastUpdatedDate { get; set; }
@@ -34,6 +34,7 @@ namespace EnterpriseSystems.Infrastructure.Model.Entities
         public string LastUpdatedProgramCode { get; set; }
         public List<CustomerRequestVO> CustomerRequests { get; set; }
         public List<AppointmentVO> Appointments { get; set; }
+        public List<CommentVO> Comments { get; set; }
 
     }
 }

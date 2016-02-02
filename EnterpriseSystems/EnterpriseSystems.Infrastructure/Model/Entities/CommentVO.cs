@@ -18,7 +18,7 @@ namespace EnterpriseSystems.Infrastructure.Model.Entities
         public int SequenceNumber { get; set; }
         public string CommentType { get; set; }
         public string CommentText { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string CreatedUserId { get; set; }
         public string CreatedProgramCode { get; set; }
         public DateTime? LastUpdatedDate { get; set; }

@@ -15,7 +15,7 @@ namespace EnterpriseSystems.Infrastructure.Model.Entities
         public int EntityIdentity { get; set; }
         public string SoutheasternReferenceNumberType { get; set; }
         public string ReferenceNumber { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string CreatedUserId { get; set; }
         public string CreatedProgramCode { get; set; }
         public DateTime? LastUpdatedDate { get; set; }
