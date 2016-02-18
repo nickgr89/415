@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EnterpriseSystems.Infrastructure.Model.Entities
+namespace EnterpriseSystems.Data.Model.Entities
 {
     public class CustomerRequestVO
     {

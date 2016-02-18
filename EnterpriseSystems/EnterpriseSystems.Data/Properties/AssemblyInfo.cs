@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EnterpriseSystems.Infrastructure")]
+[assembly: AssemblyTitle("EnterpriseSystems.Data")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("EnterpriseSystems.Infrastructure")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("EnterpriseSystems.Data")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0807fa96-8e16-4811-aa03-7401bf735aa5")]
+[assembly: Guid("31bdc0d6-024d-42c1-b693-923fceab21cf")]
 
 // Version information for an assembly consists of the following four values:
 //

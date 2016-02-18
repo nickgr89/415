@@ -1,5 +1,0 @@
-C:\Users\Nick\Documents\Visual Studio 2015\Projects\EnterpriseSystems\EnterpriseSystems.Infrastructure\bin\Debug\EnterpriseSystems.Infrastructure.dll
-C:\Users\Nick\Documents\Visual Studio 2015\Projects\EnterpriseSystems\EnterpriseSystems.Infrastructure\bin\Debug\EnterpriseSystems.Infrastructure.pdb
-C:\Users\Nick\Documents\Visual Studio 2015\Projects\EnterpriseSystems\EnterpriseSystems.Infrastructure\obj\Debug\EnterpriseSystems.Infrastructure.csprojResolveAssemblyReference.cache
-C:\Users\Nick\Documents\Visual Studio 2015\Projects\EnterpriseSystems\EnterpriseSystems.Infrastructure\obj\Debug\EnterpriseSystems.Infrastructure.dll
-C:\Users\Nick\Documents\Visual Studio 2015\Projects\EnterpriseSystems\EnterpriseSystems.Infrastructure\obj\Debug\EnterpriseSystems.Infrastructure.pdb
