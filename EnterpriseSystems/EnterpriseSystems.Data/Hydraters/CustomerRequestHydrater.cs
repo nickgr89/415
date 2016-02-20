@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using EnterpriseSystems.Data.Model.Constants;
 
 namespace EnterpriseSystems.Data.Hydraters
 {
@@ -27,17 +28,17 @@ namespace EnterpriseSystems.Data.Hydraters
         {
             var customerRequest = new CustomerRequestVO
             {
-                Identity = (int)dataRow["CUS_REQ_I"],
-                Status = dataRow["PRS_STT"].ToString(),
-                BusinessEntityKey = dataRow["BUS_UNT_ETY_NM"].ToString(),
-                TypeCode = dataRow["REQ_TYP_C"].ToString(),
-                ConsumerClassificationType = dataRow["CNSM_CLS"].ToString(),
-                CreatedDate = (DateTime?)dataRow["CRT_S"],
-                CreatedUserId = dataRow["CRT_UID"].ToString(),
-                CreatedProgramCode = dataRow["CRT_PGM_C"].ToString(),
-                LastUpdatedDate = (DateTime?)dataRow["LST_UPD_S"],
-                LastUpdatedUserId = dataRow["LST_UPD_UID"].ToString(),
-                LastUpdatedProgramCode = dataRow["LST_UPD_PGM_C"].ToString()
+                Identity = (int)dataRow[CustomerRequestColumnNames.Identity],
+                Status = dataRow[CustomerRequestColumnNames.Status].ToString(),
+                BusinessEntityKey = dataRow[CustomerRequestColumnNames.BusinessEntityKey].ToString(),
+                TypeCode = dataRow[CustomerRequestColumnNames.TypeCode].ToString(),
+                ConsumerClassificationType = dataRow[CustomerRequestColumnNames.ConsumerClassificationType].ToString(),
+                CreatedDate = (DateTime?)dataRow[CustomerRequestColumnNames.CreatedDate],
+                CreatedUserId = dataRow[CustomerRequestColumnNames.CreatedUserId].ToString(),
+                CreatedProgramCode = dataRow[CustomerRequestColumnNames.CreatedProgramCode].ToString(),
+                LastUpdatedDate = (DateTime?)dataRow[CustomerRequestColumnNames.LastUpdatedDate],
+                LastUpdatedUserId = dataRow[CustomerRequestColumnNames.LastUpdatedUserId].ToString(),
+                LastUpdatedProgramCode = dataRow[CustomerRequestColumnNames.LastUpdatedProgramCode].ToString()
             };
 
             //customerRequest.Appointments = GetAppointmentsByCustomerRequest(customerRequest);

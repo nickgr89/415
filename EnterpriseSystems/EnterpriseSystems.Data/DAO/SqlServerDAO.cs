@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using EnterpriseSystems.Data.Model.Constants;
 using EnterpriseSystems.Data.Model.Entities;
 
 namespace EnterpriseSystems.Data.DAO
 {
     public class SqlServerDAO
     {
-        private const string DatabaseConnectionString = "NULL";
+        private const string DatabaseConnectionString = DatabaseConnectionStrings.Default;
 
         public CustomerRequestVO GetCustomerRequestByIdentity(int customerRequestIdentity)
         {
@@ -22,7 +23,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequestIdentity);
+                    queryCommand.Parameters.AddWithValue(CustomerRequestQueryParameters.Identity, customerRequestIdentity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -46,7 +47,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@REF_NBR", referenceNumber);
+                    queryCommand.Parameters.AddWithValue(CustomerRequestQueryParameters.ReferenceNumber, referenceNumber);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -70,8 +71,8 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@BUS_UNT_KEY_CH", businessName);
-                    queryCommand.Parameters.AddWithValue("@REF_NBR", referenceNumber);
+                    queryCommand.Parameters.AddWithValue(CustomerRequestQueryParameters.BusinessName, businessName);
+                    queryCommand.Parameters.AddWithValue(CustomerRequestQueryParameters.ReferenceNumber, referenceNumber);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -90,17 +91,17 @@ namespace EnterpriseSystems.Data.DAO
             {
                 var customerRequest = new CustomerRequestVO
                 {
-                    Identity = (int)currentRow["CUS_REQ_I"],
-                    Status = currentRow["PRS_STT"].ToString(),
-                    BusinessEntityKey = currentRow["BUS_UNT_KEY_CH"].ToString(),
-                    TypeCode = currentRow["REQ_TYP_C"].ToString(),
-                    ConsumerClassificationType = currentRow["CNSM_CLS"].ToString(),
-                    CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserId = currentRow["CRT_UID"].ToString(),
-                    CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
-                    LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
+                    Identity = (int)currentRow[CustomerRequestColumnNames.Identity],
+                    Status = currentRow[CustomerRequestColumnNames.Status].ToString(),
+                    BusinessEntityKey = currentRow[CustomerRequestColumnNames.BusinessEntityKey].ToString(),
+                    TypeCode = currentRow[CustomerRequestColumnNames.TypeCode].ToString(),
+                    ConsumerClassificationType = currentRow[CustomerRequestColumnNames.ConsumerClassificationType].ToString(),
+                    CreatedDate = (DateTime?)currentRow[CustomerRequestColumnNames.CreatedDate],
+                    CreatedUserId = currentRow[CustomerRequestColumnNames.CreatedUserId].ToString(),
+                    CreatedProgramCode = currentRow[CustomerRequestColumnNames.CreatedProgramCode].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow[CustomerRequestColumnNames.LastUpdatedDate],
+                    LastUpdatedUserId = currentRow[CustomerRequestColumnNames.LastUpdatedUserId].ToString(),
+                    LastUpdatedProgramCode = currentRow[CustomerRequestColumnNames.LastUpdatedProgramCode].ToString()
                 };
 
                 customerRequest.Appointments = GetAppointmentsByCustomerRequest(customerRequest);
@@ -126,7 +127,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
+                    queryCommand.Parameters.AddWithValue(AppointmentQueryParameters.Identity, customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -145,21 +146,21 @@ namespace EnterpriseSystems.Data.DAO
             {
                 var appointment = new AppointmentVO
                 {
-                    Identity = (int)currentRow["REQ_ETY_SCH_I"],
-                    EntityName = currentRow["ETY_NM"].ToString(),
-                    EntityIdentity = (int)currentRow["ETY_KEY_I"],
-                    SequenceNumber = (short?)currentRow["SEQ_NBR"],
-                    FunctionType = currentRow["SCH_FUN_TYP"].ToString(),
-                    AppointmentBegin = (DateTime?)currentRow["BEG_S"],
-                    AppointmentEnd = (DateTime?)currentRow["END_S"],
-                    TimezoneDescription = currentRow["TZ_TYP_DSC"].ToString(),
-                    Status = currentRow["PRS_STT"].ToString(),
-                    CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserId = currentRow["CRT_UID"].ToString(),
-                    CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
-                    LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
+                    Identity = (int)currentRow[AppointmentColumnNames.Identity],
+                    EntityName = currentRow[AppointmentColumnNames.EntityName].ToString(),
+                    EntityIdentity = (int)currentRow[AppointmentColumnNames.EntityIdentity],
+                    SequenceNumber = (short?)currentRow[AppointmentColumnNames.SequenceNumber],
+                    FunctionType = currentRow[AppointmentColumnNames.FunctionType].ToString(),
+                    AppointmentBegin = (DateTime?)currentRow[AppointmentColumnNames.AppointmentBegin],
+                    AppointmentEnd = (DateTime?)currentRow[AppointmentColumnNames.AppointmentEnd],
+                    TimezoneDescription = currentRow[AppointmentColumnNames.TimezoneDescription].ToString(),
+                    Status = currentRow[AppointmentColumnNames.Status].ToString(),
+                    CreatedDate = (DateTime?)currentRow[AppointmentColumnNames.CreatedDate],
+                    CreatedUserId = currentRow[AppointmentColumnNames.CreatedDate].ToString(),
+                    CreatedProgramCode = currentRow[AppointmentColumnNames.CreatedProgramCode].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow[AppointmentColumnNames.LastUpdatedDate],
+                    LastUpdatedUserId = currentRow[AppointmentColumnNames.LastUpdatedUserId].ToString(),
+                    LastUpdatedProgramCode = currentRow[AppointmentColumnNames.LastUpdatedProgramCode].ToString()
                 };
 
                 appointments.Add(appointment);
@@ -180,7 +181,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
+                    queryCommand.Parameters.AddWithValue(CommentQueryParameters.Identity, customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -199,18 +200,18 @@ namespace EnterpriseSystems.Data.DAO
             {
                 var comment = new CommentVO
                 {
-                    Identity = (int)currentRow["REQ_ETY_CMM_I"],
-                    EntityName = currentRow["ETY_NM"].ToString(),
-                    EntityIdentity = (int)currentRow["ETY_KEY_I"],
-                    SequenceNumber = (short)currentRow["SEQ_NBR"],
-                    CommentType = currentRow["CMM_TYP"].ToString(),
-                    CommentText = currentRow["CMM_TXT"].ToString(),
-                    CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserId = currentRow["CRT_UID"].ToString(),
-                    CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
-                    LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
+                    Identity = (int)currentRow[CommentColumnNames.Identity],
+                    EntityName = currentRow[CommentColumnNames.EntityName].ToString(),
+                    EntityIdentity = (int)currentRow[CommentColumnNames.EntityIdentity],
+                    SequenceNumber = (short)currentRow[CommentColumnNames.SequenceNumber],
+                    CommentType = currentRow[CommentColumnNames.CommentType].ToString(),
+                    CommentText = currentRow[CommentColumnNames.CommentText].ToString(),
+                    CreatedDate = (DateTime?)currentRow[CommentColumnNames.CreatedDate],
+                    CreatedUserId = currentRow[CommentColumnNames.CreatedUserId].ToString(),
+                    CreatedProgramCode = currentRow[CommentColumnNames.CreatedProgramCode].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow[CommentColumnNames.LastUpdatedDate],
+                    LastUpdatedUserId = currentRow[CommentColumnNames.LastUpdatedUserId].ToString(),
+                    LastUpdatedProgramCode = currentRow[CommentColumnNames.LastUpdatedProgramCode].ToString()
                 };
 
                 comments.Add(comment);
@@ -231,7 +232,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
+                    queryCommand.Parameters.AddWithValue(ReferenceNumberQueryParameters.Identity, customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -250,18 +251,18 @@ namespace EnterpriseSystems.Data.DAO
             {
                 var referenceNumber = new ReferenceNumberVO
                 {
-                    Identity = (int)currentRow["REQ_ETY_REF_NBR_I"],
-                    EntityName = currentRow["ETY_NM"].ToString(),
-                    EntityIdentity = (int)currentRow["ETY_KEY_I"],
-                    ReferenceNumberType = currentRow["SLU_REF_NBR_TYP"].ToString(),
-                    ReferenceNumberDescription = currentRow["REF_NBR_TYP_DSC"].ToString(),
-                    ReferenceNumber = currentRow["REF_NBR"].ToString(),
-                    CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserId = currentRow["CRT_UID"].ToString(),
-                    CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
-                    LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
+                    Identity = (int)currentRow[ReferenceNumberColumnNames.Identity],
+                    EntityName = currentRow[ReferenceNumberColumnNames.EntityName].ToString(),
+                    EntityIdentity = (int)currentRow[ReferenceNumberColumnNames.EntityIdentity],
+                    ReferenceNumberType = currentRow[ReferenceNumberColumnNames.ReferenceNumberType].ToString(),
+                    ReferenceNumberDescription = currentRow[ReferenceNumberColumnNames.ReferenceNumberDescription].ToString(),
+                    ReferenceNumber = currentRow[ReferenceNumberColumnNames.ReferenceNumber].ToString(),
+                    CreatedDate = (DateTime?)currentRow[ReferenceNumberColumnNames.CreatedDate],
+                    CreatedUserId = currentRow[ReferenceNumberColumnNames.CreatedUserId].ToString(),
+                    CreatedProgramCode = currentRow[ReferenceNumberColumnNames.CreatedProgramCode].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow[ReferenceNumberColumnNames.LastUpdatedDate],
+                    LastUpdatedUserId = currentRow[ReferenceNumberColumnNames.LastUpdatedUserId].ToString(),
+                    LastUpdatedProgramCode = currentRow[ReferenceNumberColumnNames.LastUpdatedProgramCode].ToString()
                 };
 
                 referenceNumbers.Add(referenceNumber);
@@ -282,7 +283,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
+                    queryCommand.Parameters.AddWithValue(StopQueryParameters.Identity, customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -301,25 +302,25 @@ namespace EnterpriseSystems.Data.DAO
             {
                 var stop = new StopVO
                 {
-                    Identity = (int)currentRow["REQ_ETY_OGN_I"],
-                    EntityName = currentRow["ETY_NM"].ToString(),
-                    EntityIdentity = (int)currentRow["ETY_KEY_I"],
-                    RoleType = currentRow["SLU_PTR_RL_TYP_C"].ToString(),
-                    StopNumber = (short)currentRow["STP_NBR"],
-                    CustomerAlias = currentRow["CUS_SIT_ALS"].ToString(),
-                    OrganizationName = currentRow["OGN_NM"].ToString(),
-                    AddressLine1 = currentRow["ADR_LNE_1"].ToString(),
-                    AddressLine2 = currentRow["ADR_LNE_2"].ToString(),
-                    AddressCityName = currentRow["ADR_CTY_NM"].ToString(),
-                    AddressStateCode = currentRow["ADR_ST_PROV_C"].ToString(),
-                    AddressCountryCode = currentRow["ADR_CRY_C"].ToString(),
-                    AddressPostalCode = currentRow["ADR_PST_C_SRG"].ToString(),
-                    CreatedDate = (DateTime?)currentRow["CRT_S"],
-                    CreatedUserId = currentRow["CRT_UID"].ToString(),
-                    CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
-                    LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
+                    Identity = (int)currentRow[StopColumnNames.Identity],
+                    EntityName = currentRow[StopColumnNames.EntityName].ToString(),
+                    EntityIdentity = (int)currentRow[StopColumnNames.EntityIdentity],
+                    RoleType = currentRow[StopColumnNames.RoleType].ToString(),
+                    StopNumber = (short)currentRow[StopColumnNames.StopNumber],
+                    CustomerAlias = currentRow[StopColumnNames.CustomerAlias].ToString(),
+                    OrganizationName = currentRow[StopColumnNames.OrganizationName].ToString(),
+                    AddressLine1 = currentRow[StopColumnNames.AddressLine1].ToString(),
+                    AddressLine2 = currentRow[StopColumnNames.AddressLine2].ToString(),
+                    AddressCityName = currentRow[StopColumnNames.AddressCityName].ToString(),
+                    AddressStateCode = currentRow[StopColumnNames.AddressStateCode].ToString(),
+                    AddressCountryCode = currentRow[StopColumnNames.AddressCountryCode].ToString(),
+                    AddressPostalCode = currentRow[StopColumnNames.AddressPostalCode].ToString(),
+                    CreatedDate = (DateTime?)currentRow[StopColumnNames.CreatedDate],
+                    CreatedUserId = currentRow[StopColumnNames.CreatedUserId].ToString(),
+                    CreatedProgramCode = currentRow[StopColumnNames.CreatedProgramCode].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow[StopColumnNames.LastUpdatedDate],
+                    LastUpdatedUserId = currentRow[StopColumnNames.LastUpdatedUserId].ToString(),
+                    LastUpdatedProgramCode = currentRow[StopColumnNames.LastUpdatedProgramCode].ToString()
                 };
 
                 stop.Appointments = GetAppointmentsByStop(stop);
@@ -342,7 +343,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop.Identity);
+                    queryCommand.Parameters.AddWithValue(AppointmentQueryParameters.Stop, stop.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -364,7 +365,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop.Identity);
+                    queryCommand.Parameters.AddWithValue(CommentQueryParameters.Stop, stop.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
