@@ -1,11 +1,11 @@
-﻿using EnterpriseSystems.Infrastructure.Model.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using EnterpriseSystems.Data.Model.Entities;
 
-namespace EnterpriseSystems.Infrastructure.DAO
+namespace EnterpriseSystems.Data.DAO
 {
     public class SqlServerDAO
     {
@@ -33,7 +33,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
             }
         }
 
-        public List<CustomerRequestVO> GetCustomerRequestsByReferenceNumber(string referenceNumber)
+        public IEnumerable<CustomerRequestVO> GetCustomerRequestsByReferenceNumber(string referenceNumber)
         {
             const string selectQueryStatement = "SELECT A.* FROM CUS_REQ A, REQ_ETY_REF_NBR B WHERE "
                                     + "B.ETY_NM = 'CUS_REQ' AND B.ETY_KEY_I = A.CUS_REQ_I AND "
@@ -51,13 +51,13 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     queryResult.Load(sqlReader);
                 }
 
-                var customerRequestByReferenceNumber = BuildCustomerRequests(queryResult);
+                var customerRequestsByReferenceNumber = BuildCustomerRequests(queryResult);
 
-                return customerRequestByReferenceNumber;
+                return customerRequestsByReferenceNumber;
             }
         }
 
-        public List<CustomerRequestVO> GetCustomerRequestsByReferenceNumberAndBusinessName(string referenceNumber, string businessName)
+        public IEnumerable<CustomerRequestVO> GetCustomerRequestsByReferenceNumberAndBusinessName(string referenceNumber, string businessName)
         {
             const string selectQueryStatement = "SELECT A.* FROM CUS_REQ A, REQ_ETY_REF_NBR B WHERE "
                         + "A.BUS_UNT_KEY_CH = @BUS_UNT_KEY_CH AND B.ETY_NM = 'CUS_REQ' "
@@ -70,15 +70,15 @@ namespace EnterpriseSystems.Infrastructure.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@REF_NBR", referenceNumber);
                     queryCommand.Parameters.AddWithValue("@BUS_UNT_KEY_CH", businessName);
+                    queryCommand.Parameters.AddWithValue("@REF_NBR", referenceNumber);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
 
-                var customerRequestByReferenceNumberAndBusinessName = BuildCustomerRequests(queryResult);
+                var customerRequestsByReferenceNumberAndBusinessName = BuildCustomerRequests(queryResult);
 
-                return customerRequestByReferenceNumberAndBusinessName;
+                return customerRequestsByReferenceNumberAndBusinessName;
             }
         }
 
@@ -92,7 +92,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
                 {
                     Identity = (int)currentRow["CUS_REQ_I"],
                     Status = currentRow["PRS_STT"].ToString(),
-                    BusinessEntityKey = currentRow["BUS_UNT_ETY_NM"].ToString(),
+                    BusinessEntityKey = currentRow["BUS_UNT_KEY_CH"].ToString(),
                     TypeCode = currentRow["REQ_TYP_C"].ToString(),
                     ConsumerClassificationType = currentRow["CNSM_CLS"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
@@ -126,7 +126,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@Cus_REQ_I", customerRequest);
+                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -148,22 +148,23 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     Identity = (int)currentRow["REQ_ETY_SCH_I"],
                     EntityName = currentRow["ETY_NM"].ToString(),
                     EntityIdentity = (int)currentRow["ETY_KEY_I"],
-                    SequenceNumber = (int)currentRow["SEQ_NBR"],
+                    SequenceNumber = (short?)currentRow["SEQ_NBR"],
                     FunctionType = currentRow["SCH_FUN_TYP"].ToString(),
                     AppointmentBegin = (DateTime?)currentRow["BEG_S"],
                     AppointmentEnd = (DateTime?)currentRow["END_S"],
-                    TimeZoneDescription = currentRow["TZ_TYP_DSC"].ToString(),
+                    TimezoneDescription = currentRow["TZ_TYP_DSC"].ToString(),
                     Status = currentRow["PRS_STT"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
                     CreatedUserId = currentRow["CRT_UID"].ToString(),
                     CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LAST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LAST_UPD_UID"].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
+                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
 
                 appointments.Add(appointment);
             }
+
             return appointments;
         }
 
@@ -179,7 +180,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest);
+                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -198,21 +199,23 @@ namespace EnterpriseSystems.Infrastructure.DAO
             {
                 var comment = new CommentVO
                 {
-                    Identity = (int)currentRow["REQ_ETY_SCH_I"],
+                    Identity = (int)currentRow["REQ_ETY_CMM_I"],
                     EntityName = currentRow["ETY_NM"].ToString(),
                     EntityIdentity = (int)currentRow["ETY_KEY_I"],
-                    SequenceNumber = (int)currentRow["SEQ_NBR"],
+                    SequenceNumber = (short)currentRow["SEQ_NBR"],
                     CommentType = currentRow["CMM_TYP"].ToString(),
                     CommentText = currentRow["CMM_TXT"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
                     CreatedUserId = currentRow["CRT_UID"].ToString(),
                     CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LAST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LAST_UPD_UID"].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
+                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
+
                 comments.Add(comment);
             }
+
             return comments;
         }
 
@@ -228,14 +231,14 @@ namespace EnterpriseSystems.Infrastructure.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest);
+                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
 
-                var referenceNumberByCustomerRequest = BuildReferenceNumbers(queryResult);
+                var referenceNumbersByCustomerRequest = BuildReferenceNumbers(queryResult);
 
-                return referenceNumberByCustomerRequest;
+                return referenceNumbersByCustomerRequest;
             }
         }
 
@@ -247,25 +250,25 @@ namespace EnterpriseSystems.Infrastructure.DAO
             {
                 var referenceNumber = new ReferenceNumberVO
                 {
-                    Identity = (int)currentRow["REQ_ETY_SCH_I"],
+                    Identity = (int)currentRow["REQ_ETY_REF_NBR_I"],
                     EntityName = currentRow["ETY_NM"].ToString(),
                     EntityIdentity = (int)currentRow["ETY_KEY_I"],
-                    SoutheasternReferenceNumberType = currentRow["SLU_REF_NBR_TYP"].ToString(),
+                    ReferenceNumberType = currentRow["SLU_REF_NBR_TYP"].ToString(),
+                    ReferenceNumberDescription = currentRow["REF_NBR_TYP_DSC"].ToString(),
                     ReferenceNumber = currentRow["REF_NBR"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
                     CreatedUserId = currentRow["CRT_UID"].ToString(),
                     CreatedProgramCode = currentRow["CRT_PGM_C"].ToString(),
-                    LastUpdatedDate = (DateTime?)currentRow["LAST_UPD_S"],
-                    LastUpdatedUserId = currentRow["LAST_UPD_UID"].ToString(),
+                    LastUpdatedDate = (DateTime?)currentRow["LST_UPD_S"],
+                    LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
 
-                referenceNumber.CustomerRequests = GetCustomerRequestsByReferenceNumber(referenceNumber.ReferenceNumber);
                 referenceNumbers.Add(referenceNumber);
             }
+
             return referenceNumbers;
         }
-
 
 
         private List<StopVO> GetStopsByCustomerRequest(CustomerRequestVO customerRequest)
@@ -279,7 +282,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest);
+                    queryCommand.Parameters.AddWithValue("@CUS_REQ_I", customerRequest.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -298,18 +301,18 @@ namespace EnterpriseSystems.Infrastructure.DAO
             {
                 var stop = new StopVO
                 {
-                    Identity = (int)currentRow["REQ_ETY_SCH_I"],
+                    Identity = (int)currentRow["REQ_ETY_OGN_I"],
                     EntityName = currentRow["ETY_NM"].ToString(),
                     EntityIdentity = (int)currentRow["ETY_KEY_I"],
                     RoleType = currentRow["SLU_PTR_RL_TYP_C"].ToString(),
-                    StopNumber = currentRow["STP_NBR"].ToString(),
+                    StopNumber = (short)currentRow["STP_NBR"],
                     CustomerAlias = currentRow["CUS_SIT_ALS"].ToString(),
                     OrganizationName = currentRow["OGN_NM"].ToString(),
                     AddressLine1 = currentRow["ADR_LNE_1"].ToString(),
                     AddressLine2 = currentRow["ADR_LNE_2"].ToString(),
                     AddressCityName = currentRow["ADR_CTY_NM"].ToString(),
                     AddressStateCode = currentRow["ADR_ST_PROV_C"].ToString(),
-                    AddressCountryCode = currentRow["ADR_CRV_C"].ToString(),
+                    AddressCountryCode = currentRow["ADR_CRY_C"].ToString(),
                     AddressPostalCode = currentRow["ADR_PST_C_SRG"].ToString(),
                     CreatedDate = (DateTime?)currentRow["CRT_S"],
                     CreatedUserId = currentRow["CRT_UID"].ToString(),
@@ -318,11 +321,12 @@ namespace EnterpriseSystems.Infrastructure.DAO
                     LastUpdatedUserId = currentRow["LST_UPD_UID"].ToString(),
                     LastUpdatedProgramCode = currentRow["LST_UPD_PGM_C"].ToString()
                 };
+
                 stop.Appointments = GetAppointmentsByStop(stop);
                 stop.Comments = GetCommentsByStop(stop);
-
                 stops.Add(stop);
             }
+
             return stops;
         }
 
@@ -338,7 +342,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop);
+                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
@@ -360,7 +364,7 @@ namespace EnterpriseSystems.Infrastructure.DAO
 
                 using (SqlCommand queryCommand = new SqlCommand(selectQueryStatement, defaultSqlConnection))
                 {
-                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop);
+                    queryCommand.Parameters.AddWithValue("@REQ_ETY_OGN_I", stop.Identity);
                     var sqlReader = queryCommand.ExecuteReader();
                     queryResult.Load(sqlReader);
                 }
