@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using EnterpriseSystems.Data.Model.Constants;
 
 namespace EnterpriseSystems.Data.Hydraters
 {
@@ -27,21 +28,21 @@ namespace EnterpriseSystems.Data.Hydraters
         {
             var appointment = new AppointmentVO
             {
-                Identity = (int) dataRow["REQ_ETY_SCH_I"],
-                EntityName = dataRow["ETY_NM"].ToString(),
-                EntityIdentity = (int) dataRow["ETY_KEY_I"],
-                SequenceNumber = (short?) dataRow["SEQ_NBR"],
-                FunctionType = dataRow["SCH_FUN_TYP"].ToString(),
-                AppointmentBegin = (DateTime?) dataRow["BEG_S"],
-                AppointmentEnd = (DateTime?) dataRow["END_S"],
-                TimezoneDescription = dataRow["TZ_TYP_DSC"].ToString(),
-                Status = dataRow["PRS_STT"].ToString(),
-                CreatedDate = (DateTime?) dataRow["CRT_S"],
-                CreatedUserId = dataRow["CRT_UID"].ToString(),
-                CreatedProgramCode = dataRow["CRT_PGM_C"].ToString(),
-                LastUpdatedDate = (DateTime?) dataRow["LST_UPD_S"],
-                LastUpdatedUserId = dataRow["LST_UPD_UID"].ToString(),
-                LastUpdatedProgramCode = dataRow["LST_UPD_PGM_C"].ToString()
+                Identity = (int) dataRow[AppointmentColumnNames.Identity],
+                EntityName = dataRow[AppointmentColumnNames.EntityName].ToString(),
+                EntityIdentity = (int) dataRow[AppointmentColumnNames.EntityIdentity],
+                SequenceNumber = (short?) dataRow[AppointmentColumnNames.SequenceNumber],
+                FunctionType = dataRow[AppointmentColumnNames.FunctionType].ToString(),
+                AppointmentBegin = (DateTime?) dataRow[AppointmentColumnNames.AppointmentBegin],
+                AppointmentEnd = (DateTime?) dataRow[AppointmentColumnNames.AppointmentEnd],
+                TimezoneDescription = dataRow[AppointmentColumnNames.TimezoneDescription].ToString(),
+                Status = dataRow[AppointmentColumnNames.Status].ToString(),
+                CreatedDate = (DateTime?) dataRow[AppointmentColumnNames.CreatedDate],
+                CreatedUserId = dataRow[AppointmentColumnNames.CreatedUserId].ToString(),
+                CreatedProgramCode = dataRow[AppointmentColumnNames.CreatedProgramCode].ToString(),
+                LastUpdatedDate = (DateTime?) dataRow[AppointmentColumnNames.LastUpdatedDate],
+                LastUpdatedUserId = dataRow[AppointmentColumnNames.LastUpdatedUserId].ToString(),
+                LastUpdatedProgramCode = dataRow[AppointmentColumnNames.LastUpdatedProgramCode].ToString()
             };
 
             return appointment;

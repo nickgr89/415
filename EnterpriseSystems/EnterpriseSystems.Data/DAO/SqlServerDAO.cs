@@ -8,7 +8,7 @@ using EnterpriseSystems.Data.Model.Entities;
 
 namespace EnterpriseSystems.Data.DAO
 {
-    public class SqlServerDAO
+    public class SqlServerDao
     {
         private const string DatabaseConnectionString = DatabaseConnectionStrings.Default;
 
@@ -325,6 +325,7 @@ namespace EnterpriseSystems.Data.DAO
 
                 stop.Appointments = GetAppointmentsByStop(stop);
                 stop.Comments = GetCommentsByStop(stop);
+
                 stops.Add(stop);
             }
 
