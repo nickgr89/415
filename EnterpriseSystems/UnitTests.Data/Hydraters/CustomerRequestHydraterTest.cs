@@ -30,7 +30,7 @@ namespace UnitTests.Data.Hydraters
             TestDataTable = new DataTable();
             TestDataTable.Columns.Add(CustomerRequestColumnNames.Identity, typeof(int));
             TestDataTable.Columns.Add(CustomerRequestColumnNames.Status, typeof(string));
-            TestDataTable.Columns.Add(CustomerRequestColumnNames.BusinessEntityName, typeof(string));
+            TestDataTable.Columns.Add(CustomerRequestColumnNames.BusinessEntityKey, typeof(string));
             TestDataTable.Columns.Add(CustomerRequestColumnNames.TypeCode, typeof(string));
             TestDataTable.Columns.Add(CustomerRequestColumnNames.ConsumerClassificationType, typeof(string));
             TestDataTable.Columns.Add(CustomerRequestColumnNames.CreatedDate, typeof(DateTime));
@@ -100,7 +100,7 @@ namespace UnitTests.Data.Hydraters
 
             testDataRow[CustomerRequestColumnNames.Identity] = 1 + (increment ?? 0);
             testDataRow[CustomerRequestColumnNames.Status] = "Status" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
-            testDataRow[CustomerRequestColumnNames.BusinessEntityName] = "BusinessEntityName" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CustomerRequestColumnNames.BusinessEntityKey] = "BusinessEntityName" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
             testDataRow[CustomerRequestColumnNames.TypeCode] = "TypeCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
             testDataRow[CustomerRequestColumnNames.ConsumerClassificationType] = "ConsumerClassificationType" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
             testDataRow[CustomerRequestColumnNames.CreatedDate] = new DateTime(1 + (increment ?? 0));
