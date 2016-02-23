@@ -1,10 +1,8 @@
 ﻿using EnterpriseSystems.Data.DAO;
 using EnterpriseSystems.Data.Hydraters;
-using EnterpriseSystems.Data.Model.Constants;
 using EnterpriseSystems.Data.Model.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
+using EnterpriseSystems.Data.Model.Constants;
 
 namespace EnterpriseSystems.Data.Mappers
 {

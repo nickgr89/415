@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EnterpriseSystems.Data.DAO;
+﻿using EnterpriseSystems.Data.DAO;
 using EnterpriseSystems.Data.Hydraters;
 using EnterpriseSystems.Data.Model.Entities;
+using System.Linq;
 using EnterpriseSystems.Data.Model.Constants;
 
 namespace EnterpriseSystems.Data.Mappers

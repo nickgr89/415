@@ -1,9 +1,9 @@
 ﻿using EnterpriseSystems.Data.DAO;
 using EnterpriseSystems.Data.Hydraters;
 using EnterpriseSystems.Data.Model.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using EnterpriseSystems.Data.Model.Constants;
 
 namespace EnterpriseSystems.Data.Mappers
 {
@@ -23,7 +23,7 @@ namespace EnterpriseSystems.Data.Mappers
             const string selectQueryStatement = "SELECT * FROM CUS_REQ WHERE CUS_REQ_I = @CUS_REQ_I";
 
             var query = Database.CreateQuery(selectQueryStatement);
-            query.AddParameter(customerRequest.Identity, "@CUS_REQ_I");
+            query.AddParameter(customerRequest.Identity, CustomerRequestQueryParameters.Identity);
             var result = Database.RunSelect(query);
             var entity = Hydrater.Hydrate(result).FirstOrDefault();
 
@@ -38,7 +38,7 @@ namespace EnterpriseSystems.Data.Mappers
                                     + "B.ETY_NM = 'CUS_REQ' AND B.ETY_KEY_I = A.CUS_REQ_I AND "
                                     + "B.REF_NBR = @REF_NBR";
             var query = Database.CreateQuery(selectQueryStatement);
-            query.AddParameter(referenceNumber, "@REF_NBR");
+            query.AddParameter(referenceNumber, CustomerRequestQueryParameters.ReferenceNumber);
             var result = Database.RunSelect(query);
             var entity = Hydrater.Hydrate(result).FirstOrDefault();
             yield return entity;
@@ -53,8 +53,8 @@ namespace EnterpriseSystems.Data.Mappers
                         + "A.BUS_UNT_KEY_CH = @BUS_UNT_KEY_CH AND B.ETY_NM = 'CUS_REQ' "
                         + "AND B.ETY_KEY_I = A.CUS_REQ_I AND B.REF_NBR = @REF_NBR";
             var query = Database.CreateQuery(selectQueryStatement);
-            query.AddParameter(referenceNumber, "@REF_NBR");
-            query.AddParameter(businessName, "@BUS_UNT_KEY_CH");
+            query.AddParameter(referenceNumber, CustomerRequestQueryParameters.ReferenceNumber);
+            query.AddParameter(businessName, CustomerRequestQueryParameters.BusinessName);
             var result = Database.RunSelect(query);
             var entity = Hydrater.Hydrate(result).FirstOrDefault();
             yield return entity;

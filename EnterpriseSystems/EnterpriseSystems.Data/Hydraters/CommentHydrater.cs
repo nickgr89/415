@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using EnterpriseSystems.Data.Model.Constants;
 
 namespace EnterpriseSystems.Data.Hydraters
 {
@@ -27,18 +28,18 @@ namespace EnterpriseSystems.Data.Hydraters
         {
             var comment = new CommentVO
             {
-                Identity = (int) dataRow["REQ_ETY_CMM_I"],
-                EntityName = dataRow["ETY_NM"].ToString(),
-                EntityIdentity = (int) dataRow["ETY_KEY_I"],
-                SequenceNumber = (short) dataRow["SEQ_NBR"],
-                CommentType = dataRow["CMM_TYP"].ToString(),
-                CommentText = dataRow["CMM_TXT"].ToString(),
-                CreatedDate = (DateTime?) dataRow["CRT_S"],
-                CreatedUserId = dataRow["CRT_UID"].ToString(),
-                CreatedProgramCode = dataRow["CRT_PGM_C"].ToString(),
-                LastUpdatedDate = (DateTime?) dataRow["LST_UPD_S"],
-                LastUpdatedUserId = dataRow["LST_UPD_UID"].ToString(),
-                LastUpdatedProgramCode = dataRow["LST_UPD_PGM_C"].ToString()
+                Identity = (int) dataRow[CommentColumnNames.Identity],
+                EntityName = dataRow[CommentColumnNames.EntityName].ToString(),
+                EntityIdentity = (int) dataRow[CommentColumnNames.EntityIdentity],
+                SequenceNumber = (short) dataRow[CommentColumnNames.SequenceNumber],
+                CommentType = dataRow[CommentColumnNames.CommentType].ToString(),
+                CommentText = dataRow[CommentColumnNames.CommentText].ToString(),
+                CreatedDate = (DateTime?) dataRow[CommentColumnNames.CreatedDate],
+                CreatedUserId = dataRow[CommentColumnNames.CreatedUserId].ToString(),
+                CreatedProgramCode = dataRow[CommentColumnNames.CreatedProgramCode].ToString(),
+                LastUpdatedDate = (DateTime?) dataRow[CommentColumnNames.LastUpdatedDate],
+                LastUpdatedUserId = dataRow[CommentColumnNames.LastUpdatedUserId].ToString(),
+                LastUpdatedProgramCode = dataRow[CommentColumnNames.LastUpdatedProgramCode].ToString()
             };
 
             return comment;
