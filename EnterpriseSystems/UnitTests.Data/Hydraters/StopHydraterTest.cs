@@ -63,5 +63,45 @@ namespace UnitTests.Data.Hydraters
 
             Assert.AreEqual(0, actual.Count());
         }
+
+        [TestMethod]
+        public void Hydrate_HydratesCommentsSuccessfully()
+        {
+            DataRow testDataRow = GetTestDataRow();
+            TestDataTable.Rows.Add(testDataRow);
+
+            testDataRow = GetTestDataRow(1);
+            TestDataTable.Rows.Add(testDataRow);
+
+            var actual = Target.Hydrate(TestDataTable);
+
+        }
+
+        private DataRow GetTestDataRow(int? increment = null)
+        {
+            DataRow testDataRow = TestDataTable.NewRow();
+
+            testDataRow[StopColumnNames.Identity] = 1 + (increment ?? 0);
+            testDataRow[StopColumnNames.EntityName] = "EntityName" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.EntityIdentity] = 2 + (increment ?? 0);
+            testDataRow[StopColumnNames.RoleType] = "RoleType" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.StopNumber] = "StopNumber" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.CustomerAlias] = "CustomerAlias" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.OrganizationName] = "OrganizationName" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.AddressLine1] = "AddressLine1" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.AddressLine2] = "AddressLine2" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.AddressCityName] = "AddressCityName" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.AddressStateCode] = "AddressStateCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.AddressCountryCode] = "AddressCountryCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.AddressPostalCode] = "AddressPostalCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.CreatedDate] = new DateTime(1 + (increment ?? 0));
+            testDataRow[StopColumnNames.CreatedUserId] = "CreatedUserId" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.CreatedProgramCode] = "CreatedProgramCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.LastUpdatedDate] = new DateTime(2 + (increment ?? 0));
+            testDataRow[StopColumnNames.LastUpdatedUserId] = "LastUpdatedUserId" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[StopColumnNames.LastUpdatedProgramCode] = "LastUpdatedProgramCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+
+            return testDataRow;
+        }
     }
 }

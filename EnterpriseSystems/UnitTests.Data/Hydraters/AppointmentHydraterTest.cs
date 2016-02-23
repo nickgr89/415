@@ -60,5 +60,41 @@ namespace UnitTests.Data.Hydraters
 
             Assert.AreEqual(0, actual.Count());
         }
+
+        [TestMethod]
+        public void Hydrate_HydratesCommentsSuccessfully()
+        {
+            DataRow testDataRow = GetTestDataRow();
+            TestDataTable.Rows.Add(testDataRow);
+
+            testDataRow = GetTestDataRow(1);
+            TestDataTable.Rows.Add(testDataRow);
+
+            var actual = Target.Hydrate(TestDataTable);
+
+        }
+
+        private DataRow GetTestDataRow(int? increment = null)
+        {
+            DataRow testDataRow = TestDataTable.NewRow();
+
+            testDataRow[AppointmentColumnNames.Identity] = 1 + (increment ?? 0);
+            testDataRow[AppointmentColumnNames.EntityName] = "EntityName" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[AppointmentColumnNames.EntityIdentity] = 2 + (increment ?? 0);
+            testDataRow[AppointmentColumnNames.SequenceNumber] = 2 + (increment ?? 0);
+            testDataRow[AppointmentColumnNames.FunctionType] = "FunctionType" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[AppointmentColumnNames.AppointmentBegin] = new DateTime(1 + (increment ?? 0));
+            testDataRow[AppointmentColumnNames.AppointmentEnd] = new DateTime(2 + (increment ?? 0));
+            testDataRow[AppointmentColumnNames.TimezoneDescription] = "TimeZoneDescription" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[AppointmentColumnNames.Status] = "Status" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[AppointmentColumnNames.CreatedDate] = new DateTime(3 + (increment ?? 0));
+            testDataRow[AppointmentColumnNames.CreatedUserId] = "CreatedUserId" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[AppointmentColumnNames.CreatedProgramCode] = "CreatedProgramCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[AppointmentColumnNames.LastUpdatedDate] = new DateTime(4 + (increment ?? 0));
+            testDataRow[AppointmentColumnNames.LastUpdatedUserId] = "LastUpdatedUserId" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[AppointmentColumnNames.LastUpdatedProgramCode] = "LastUpdatedProgramCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+
+            return testDataRow;
+        }
     }
 }

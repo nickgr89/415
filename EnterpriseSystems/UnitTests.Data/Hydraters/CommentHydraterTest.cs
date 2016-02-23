@@ -55,5 +55,38 @@ namespace UnitTests.Data.Hydraters
 
             Assert.AreEqual(0, actual.Count());
         }
+
+        [TestMethod]
+        public void Hydrate_HydratesCommentsSuccessfully()
+        {
+            DataRow testDataRow = GetTestDataRow();
+            TestDataTable.Rows.Add(testDataRow);
+
+            testDataRow = GetTestDataRow(1);
+            TestDataTable.Rows.Add(testDataRow);
+
+            var actual = Target.Hydrate(TestDataTable);
+
+        }
+
+        private DataRow GetTestDataRow(int? increment = null)
+        {
+            DataRow testDataRow = TestDataTable.NewRow();
+
+            testDataRow[CommentColumnNames.Identity] = 1 + (increment ?? 0);
+            testDataRow[CommentColumnNames.EntityName] = "EntityName " + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CommentColumnNames.EntityIdentity] = 2 + (increment ?? 0);
+            testDataRow[CommentColumnNames.SequenceNumber] = 3 + (increment ?? 0);
+            testDataRow[CommentColumnNames.CommentType] = "CommentType" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CommentColumnNames.CommentText] = "CommentText" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CommentColumnNames.CreatedDate] = new DateTime(1 + (increment ?? 0));
+            testDataRow[CommentColumnNames.CreatedUserId] = "CreatedUserId" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CommentColumnNames.CreatedProgramCode] = "CreatedProgramCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CommentColumnNames.LastUpdatedDate] = new DateTime(2 + (increment ?? 0));
+            testDataRow[CommentColumnNames.LastUpdatedUserId] = "LastUpdatedUserId" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CommentColumnNames.LastUpdatedProgramCode] = "LastUpdatedProgramCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+
+            return testDataRow;
+        }
     }
 }
