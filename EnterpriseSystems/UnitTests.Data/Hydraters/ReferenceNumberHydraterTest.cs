@@ -68,6 +68,34 @@ namespace UnitTests.Data.Hydraters
 
             var actual = Target.Hydrate(TestDataTable);
 
+            var firstElement = actual.ElementAt(0);
+            Assert.AreEqual(1, firstElement.Identity);
+            Assert.AreEqual("EntityName", firstElement.EntityName);
+            Assert.AreEqual(2, firstElement.EntityIdentity);
+            Assert.AreEqual("ReferenceNumberType", firstElement.ReferenceNumberType);
+            Assert.AreEqual("ReferenceNumberDescription", firstElement.ReferenceNumberDescription);
+            Assert.AreEqual("ReferenceNumber", firstElement.ReferenceNumber);
+            Assert.AreEqual(new DateTime(1), firstElement.CreatedDate);
+            Assert.AreEqual("CreatedUserId", firstElement.CreatedUserId);
+            Assert.AreEqual("CreatedProgramCode", firstElement.CreatedProgramCode);
+            Assert.AreEqual(new DateTime(2), firstElement.LastUpdatedDate);
+            Assert.AreEqual("LastUpdatedUserId", firstElement.LastUpdatedUserId);
+            Assert.AreEqual("LastUpdatedProgramCode", firstElement.LastUpdatedProgramCode);
+
+            var secondElement = actual.ElementAt(1);
+            Assert.AreEqual(2, firstElement.Identity);
+            Assert.AreEqual("EntityName1", firstElement.EntityName);
+            Assert.AreEqual(3, firstElement.EntityIdentity);
+            Assert.AreEqual("ReferenceNumberType1", firstElement.ReferenceNumberType);
+            Assert.AreEqual("ReferenceNumberDescription1", firstElement.ReferenceNumberDescription);
+            Assert.AreEqual("ReferenceNumber1", firstElement.ReferenceNumber);
+            Assert.AreEqual(new DateTime(2), secondElement.CreatedDate);
+            Assert.AreEqual("CreatedUserId1", secondElement.CreatedUserId);
+            Assert.AreEqual("CreatedProgramCode1", secondElement.CreatedProgramCode);
+            Assert.AreEqual(new DateTime(3), secondElement.LastUpdatedDate);
+            Assert.AreEqual("LastUpdatedUserId1", secondElement.LastUpdatedUserId);
+            Assert.AreEqual("LastUpdatedProgramCode1", secondElement.LastUpdatedProgramCode);
+
         }
 
         private DataRow GetTestDataRow(int? increment = null)
@@ -79,7 +107,8 @@ namespace UnitTests.Data.Hydraters
             testDataRow[ReferenceNumberColumnNames.EntityIdentity] = 2 + (increment ?? 0);
             testDataRow[ReferenceNumberColumnNames.ReferenceNumberType] = "ReferenceNumberType" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
             testDataRow[ReferenceNumberColumnNames.ReferenceNumberDescription] = "ReferenceNumberDescription" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
-            testDataRow[ReferenceNumberColumnNames.ReferenceNumber] = "ReferenceNumber" + (increment.HasValue ? increment.Value.ToString() : String.Empty);            testDataRow[CustomerRequestColumnNames.CreatedDate] = new DateTime(1 + (increment ?? 0));
+            testDataRow[ReferenceNumberColumnNames.ReferenceNumber] = "ReferenceNumber" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
+            testDataRow[CustomerRequestColumnNames.CreatedDate] = new DateTime(1 + (increment ?? 0));
             testDataRow[ReferenceNumberColumnNames.CreatedUserId] = "CreatedUserId" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
             testDataRow[ReferenceNumberColumnNames.CreatedProgramCode] = "CreatedProgramCode" + (increment.HasValue ? increment.Value.ToString() : String.Empty);
             testDataRow[ReferenceNumberColumnNames.LastUpdatedDate] = new DateTime(2 + (increment ?? 0));

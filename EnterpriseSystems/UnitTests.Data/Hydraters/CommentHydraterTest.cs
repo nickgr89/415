@@ -67,6 +67,34 @@ namespace UnitTests.Data.Hydraters
 
             var actual = Target.Hydrate(TestDataTable);
 
+            var firstElement = actual.ElementAt(0);
+            Assert.AreEqual(1, firstElement.Identity);
+            Assert.AreEqual("EntityName", firstElement.EntityName);
+            Assert.AreEqual(2, firstElement.EntityIdentity);
+            Assert.AreEqual(3, firstElement.SequenceNumber);
+            Assert.AreEqual("CommentType", firstElement.CommentType);
+            Assert.AreEqual("CommentText", firstElement.CommentText);
+            Assert.AreEqual(new DateTime(1), firstElement.CreatedDate);
+            Assert.AreEqual("CreatedUserId", firstElement.CreatedUserId);
+            Assert.AreEqual("CreatedProgramCode", firstElement.CreatedProgramCode);
+            Assert.AreEqual(new DateTime(2), firstElement.LastUpdatedDate);
+            Assert.AreEqual("LastUpdatedUserId", firstElement.LastUpdatedUserId);
+            Assert.AreEqual("LastUpdatedProgramCode", firstElement.LastUpdatedProgramCode);
+
+            var secondElement = actual.ElementAt(1);
+            Assert.AreEqual(3, firstElement.Identity);
+            Assert.AreEqual("EntityName", firstElement.EntityName);
+            Assert.AreEqual(4, firstElement.EntityIdentity);
+            Assert.AreEqual(5, firstElement.SequenceNumber);
+            Assert.AreEqual("CommentType", firstElement.CommentType);
+            Assert.AreEqual("CommentText", firstElement.CommentText);
+            Assert.AreEqual(new DateTime(2), secondElement.CreatedDate);
+            Assert.AreEqual("CreatedUserId1", secondElement.CreatedUserId);
+            Assert.AreEqual("CreatedProgramCode1", secondElement.CreatedProgramCode);
+            Assert.AreEqual(new DateTime(3), secondElement.LastUpdatedDate);
+            Assert.AreEqual("LastUpdatedUserId1", secondElement.LastUpdatedUserId);
+            Assert.AreEqual("LastUpdatedProgramCode1", secondElement.LastUpdatedProgramCode);
+
         }
 
         private DataRow GetTestDataRow(int? increment = null)
