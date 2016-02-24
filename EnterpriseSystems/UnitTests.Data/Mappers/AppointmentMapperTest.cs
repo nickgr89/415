@@ -33,6 +33,36 @@ namespace UnitTests.Data.Mappers
             MockAppointmentHydrater = null;
         }
 
-        //[TestMethod]
+        [TestMethod]
+        public void GetAppointmentByCustomerRequest_SetsQueryParameter()
+        {
+            var actual = Target.GetAppointmentByCustomerRequest(new CustomerRequestVO());
+
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void GetAppointmentByCustomerRequest_ReturnsHydratedEntity()
+        {
+            var actual = Target.GetAppointmentByCustomerRequest(new CustomerRequestVO());
+
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void GetAppointmentsByStop_SetsQueryParameter()
+        {
+            var actual = Target.GetAppointmentsByStop(new AppointmentVO());
+
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void GetAppointmentsByStop_ReturnsHydratedEntity()
+        {
+            var actual = Target.GetAppointmentsByStop(new AppointmentVO());
+
+            Assert.Fail();
+        }
     }
 }
