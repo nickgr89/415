@@ -1,27 +1,5 @@
 ﻿namespace EnterpriseSystems.Data.Model.Constants
 {
-    public class CustomerRequestColumnNames
-    {
-        public const string Identity = "CUS_REQ_I";
-        public const string Status = "PRS_STT";
-        public const string BusinessEntityKey = "BUS_UNT_ETY_NM";
-        public const string TypeCode = "REQ_TYP_C";
-        public const string ConsumerClassificationType = "CNSM_CLS";
-        public const string CreatedDate = "CRT_S";
-        public const string CreatedUserId = "CRT_UID";
-        public const string CreatedProgramCode = "CRT_PGM_C";
-        public const string LastUpdatedDate = "LST_UPD_S";
-        public const string LastUpdatedUserId = "LST_UPD_UID";
-        public const string LastUpdatedProgramCode = "LST_UPD_PGM_C";
-    }
-
-    public class CustomerRequestQueryParameters
-    {
-        public const string BusinessName = "@BUS_UNT_KEY_CH";
-        public const string Identity = "@CUS_REQ_I";
-        public const string ReferenceNumber = "@REF_NBR";
-    }
-
     public class AppointmentColumnNames
     {
         public const string Identity = "REQ_ETY_SCH_I";
@@ -41,12 +19,6 @@
         public const string LastUpdatedProgramCode = "LST_UPD_PGM_C";
     }
 
-    public class AppointmentQueryParameters
-    {
-        public const string Identity = "@CUS_REQ_I";
-        public const string Stop = "@REQ_ETY_OGN_I";
-    }
-
     public class CommentColumnNames
     {
         public const string Identity = "REQ_ETY_CMM_I";
@@ -63,10 +35,38 @@
         public const string LastUpdatedProgramCode = "LST_UPD_PGM_C";
     }
 
-    public class CommentQueryParameters
+    public class CustomerRequestColumnNames
     {
+        public const string Identity = "CUS_REQ_I";
+        public const string Status = "PRS_STT";
+        public const string BusinessEntityName = "BUS_UNT_KEY_CH";
+        public const string TypeCode = "REQ_TYP_C";
+        public const string ConsumerClassificationType = "CNSM_CLS";
+        public const string CreatedDate = "CRT_S";
+        public const string CreatedUserId = "CRT_UID";
+        public const string CreatedProgramCode = "CRT_PGM_C";
+        public const string LastUpdatedDate = "LST_UPD_S";
+        public const string LastUpdatedUserId = "LST_UPD_UID";
+        public const string LastUpdatedProgramCode = "LST_UPD_PGM_C";
+    }
+
+    public class CustomerRequestQueryParameters
+    {
+        public const string BusinessName = "@BUS_UNT_KEY_CH";
         public const string Identity = "@CUS_REQ_I";
-        public const string Stop = "@REQ_ETY_OGN_I";
+    }
+
+    public class DatabaseConnectionStrings
+    {
+        public const string Default = "NULL";
+    }
+
+    public class EntityNames
+    {
+        public const string CustomerRequest = "CUS_REQ";
+        public const string Stop = "REQ_ETY_OGN";
+        public const string ReferenceNumber = "REQ_ETY_REF_NBR";
+        public const string Appointment = "REQ_ETY_SCH";
     }
 
     public class ReferenceNumberColumnNames
@@ -87,7 +87,8 @@
 
     public class ReferenceNumberQueryParameters
     {
-        public const string Identity = "@CUS_REQ_I";
+        public const string ReferenceNumber = "@REF_NBR";
+        public const string ReferenceNumberType = "@SLU_REF_NBR_TYP";
     }
 
     public class StopColumnNames
@@ -115,11 +116,6 @@
 
     public class StopQueryParameters
     {
-        public const string Identity = "@CUS_REQ_I";
-    }
-
-    public class DatabaseConnectionStrings
-    {
-        public const string Default = "NULL";
+        public const string Identity = "REQ_ETY_OGN_I";
     }
 }
