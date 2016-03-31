@@ -1,0 +1,7 @@
+C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Domain\bin\Debug\EnterpriseSystems.Domain.dll
+C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Domain\bin\Debug\EnterpriseSystems.Domain.pdb
+C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Domain\bin\Debug\EnterpriseSystems.Data.dll
+C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Domain\bin\Debug\EnterpriseSystems.Data.pdb
+C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Domain\obj\Debug\EnterpriseSystems.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Domain\obj\Debug\EnterpriseSystems.Domain.dll
+C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Domain\obj\Debug\EnterpriseSystems.Domain.pdb
