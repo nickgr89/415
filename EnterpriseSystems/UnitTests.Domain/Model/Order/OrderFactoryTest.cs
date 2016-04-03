@@ -19,7 +19,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsOrderNumber()
+        public void Create_SetsOrderNumberFromBillOfLading()
         {
             var customerRequest = new CustomerRequestVO();
             customerRequest.ReferenceNumbers.Add(new ReferenceNumberVO { ReferenceNumber = "1", ReferenceNumberType = ReferenceNumberTypes.PurchaseOrderNumber });
@@ -31,7 +31,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsOrigin()
+        public void Create_SetsOriginFromFirstStop()
         {
             var customerRequest = new CustomerRequestVO();
             customerRequest.Stops.Add(new StopVO { StopNumber = 1, OrganizationName = "Southeastern", AddressLine1 = "1205 N Oak Street", AddressCityName = "Hammond", AddressStateCode = "LA", AddressPostalCode = "70402" });
@@ -49,7 +49,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsDestination()
+        public void Create_SetsDestinationFromLastStop()
         {
             var customerRequest = new CustomerRequestVO();
             customerRequest.Stops.Add(new StopVO { StopNumber = 1, OrganizationName = "Southeastern", AddressLine1 = "1205 N Oak Street", AddressCityName = "Hammond", AddressStateCode = "LA", AddressPostalCode = "70402" });
@@ -67,7 +67,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsWorkType()
+        public void Create_SetsWorkTypeFromConsumerClassificationType()
         {
             var customerRequest = new CustomerRequestVO { ConsumerClassificationType = ConsumerClassificationTypes.Residential };
 
@@ -77,7 +77,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsLegType()
+        public void Create_SetsLegTypeToDeliveryWhenLastStopIsShipTo()
         {
             var customerRequest = new CustomerRequestVO();
             customerRequest.Stops.Add(new StopVO { StopNumber = 1 });
@@ -89,7 +89,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsScheduledWhenExists()
+        public void Create_SetsScheduledFromFinalAppointmentWhenExists()
         {
             var customerRequest = new CustomerRequestVO();
             customerRequest.Appointments.Add(new AppointmentVO { FunctionType = AppointmentFunctionTypes.Target, AppointmentBegin = DateTime.Today, AppointmentEnd = DateTime.Today.AddDays(1) });
@@ -102,7 +102,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsScheduledEmptyWhenNotExists()
+        public void Create_SetsScheduledEmptyWhenFinalAppointmentNotExists()
         {
             var customerRequest = new CustomerRequestVO();
             customerRequest.Appointments.Add(new AppointmentVO { FunctionType = AppointmentFunctionTypes.Target, AppointmentBegin = DateTime.Today, AppointmentEnd = DateTime.Today.AddDays(1) });
@@ -113,7 +113,7 @@ namespace UnitTests.Domain.Model.Order
         }
 
         [TestMethod]
-        public void Create_SetsProject()
+        public void Create_SetsProjectFromBusinessEntityKey()
         {
             var customerRequest = new CustomerRequestVO { BusinessEntityKey = ProjectCodes.Southeastern };
 

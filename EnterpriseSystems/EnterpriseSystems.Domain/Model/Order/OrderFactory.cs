@@ -7,21 +7,37 @@ namespace EnterpriseSystems.Domain.Model.Order
 {
     public class OrderFactory : IOrderFactory
     {
-        private static OrderFactory instance;
+        private static OrderFactory _order;
 
+
+
+
+
+
+        // test 1/9
         public static OrderFactory GetInstance()
         {
-
-                if (instance == null) {
-                    instance = new OrderFactory();
+                if (_order == null) {
+                _order = new OrderFactory();
                 }
-                return instance;            
-
+                return _order;
         }
 
         public Order Create(CustomerRequestVO customerRequest)
         {
-            return ((IOrderFactory)instance).Create(customerRequest);
+            var _order = new Order();
+
+            // test 2/9
+            var result = from refNum 
+                in customerRequest.ReferenceNumbers
+                where (refNum.ReferenceNumberType == ReferenceNumberTypes.BillOfLading)
+                select refNum.ReferenceNumber;
+            _order.OrderNumber = result;
+
+
+
+
+            return _order;
         }
     }
 }
