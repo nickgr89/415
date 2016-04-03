@@ -34,30 +34,20 @@ namespace EnterpriseSystems.Domain.Model.Order
             // test 3/9 Create_SetsOriginFromFirstStop
             var origin = (from stop
                 in customerRequest.Stops
-                /*where (stop.StopNumber == 1)*/
+                where (stop.StopNumber == 1)
                 select stop).First();
 
-
-
-            /*_order.Origin.Name = origin.OrganizationName;
-            _order.Origin.Address.AddressLines[0] = origin.AddressLine1;
-            _order.Origin.Address.AddressLines.[1] = origin.AddressLine2;
-            _order.Origin.Address.City = origin.AddressCityName;
-            _order.Origin.Address.StateCode = origin.AddressStateCode;
-            _order.Origin.Address.PostalCode = origin.AddressPostalCode;
+            var address = new Address(origin.AddressLine1, origin.AddressLine2, origin.AddressCityName,origin.AddressStateCode, origin.AddressPostalCode);
+            _order.Origin = new Facility(origin.OrganizationName, address);
 
 
             // test 4/9, Create_SetsDestinationFromLastStop
-            var destination = from stop
+            var destination = (from stop
                 in customerRequest.Stops
-                where (stop.StopNumber == 2)
-                select stop;
-            _order.Origin.Name = destination.OrganizationName;
-            _order.Origin.Address.AddressLines[0] = destination.AddressLine1;
-            _order.Origin.Address.AddressLines[1] = destination.AddressLine2;
-            _order.Origin.Address.City = destination.AddressCityName;
-            _order.Origin.Address.StateCode = destination.AddressStateCode;
-            _order.Origin.Address.PostalCode = destination.AddressPostalCode;
+                select stop).OrderByDescending(x => x.StopNumber).Last();
+
+            var address1 = new Address(destination.AddressLine1, destination.AddressLine2, destination.AddressCityName,destination.AddressStateCode, destination.AddressPostalCode);
+            _order.Origin = new Facility(destination.OrganizationName, address1);
 
 
             // test 5/9, Create_SetsWorkTypeFromConsumerClassificationType
@@ -71,7 +61,7 @@ namespace EnterpriseSystems.Domain.Model.Order
             }else
             {
                 _order.WorkType = WorkType.Retail;
-            }*/
+            }
 
 
 
