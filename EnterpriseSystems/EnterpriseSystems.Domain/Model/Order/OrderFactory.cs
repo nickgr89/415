@@ -34,8 +34,7 @@ namespace EnterpriseSystems.Domain.Model.Order
             // test 3/9 Create_SetsOriginFromFirstStop
             var origin = (from stop
                 in customerRequest.Stops
-                where (stop.StopNumber == 1)
-                select stop).First();
+                select stop).OrderByDescending(x => x.StopNumber).First();
 
             var address = new Address(origin.AddressLine1, origin.AddressLine2, origin.AddressCityName,origin.AddressStateCode, origin.AddressPostalCode);
             _order.Origin = new Facility(origin.OrganizationName, address);
@@ -63,6 +62,34 @@ namespace EnterpriseSystems.Domain.Model.Order
                 _order.WorkType = WorkType.Retail;
             }
 
+
+            // test 6/9, Create_SetsLegTypeToDeliveryWhenLastStopIsShipTo
+            var status = (from stop
+                in customerRequest.Stops
+                select stop).OrderByDescending(x => x.StopNumber).Last();
+            if (status.RoleType == StopRoleTypes.ShipTo)
+            {
+                _order.LegType = LegType.Delivery;
+            }
+
+
+            // test 7/9, Create_SetsScheduledFromFinalAppointmentWhenExists
+            var final = (from appt
+                in customerRequest.Appointments
+                select appt).OrderByDescending(x => x.FunctionType).First();
+            if (final.FunctionType != null)
+            {
+                _order.Scheduled = new Appointment(final.AppointmentBegin.Value, final.AppointmentEnd.Value);
+            }
+            else
+            {
+                // test 8/9, Create_SetsScheduledEmptyWhenFinalAppointmentNotExists
+                _order.Scheduled.IsEmpty();
+            }
+
+
+            // test 9/9, Create_SetsProjectFromBusinessEntityKey
+            _order.Project = customerRequest.BusinessEntityKey;
 
 
             return _order;
