@@ -3,3 +3,8 @@ C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Data\bin\
 C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Data\obj\Debug\EnterpriseSystems.Data.csprojResolveAssemblyReference.cache
 C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Data\obj\Debug\EnterpriseSystems.Data.dll
 C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\EnterpriseSystems.Data\obj\Debug\EnterpriseSystems.Data.pdb
+C:\Users\marcus little\Documents\415\EnterpriseSystems\EnterpriseSystems.Data\bin\Debug\EnterpriseSystems.Data.dll
+C:\Users\marcus little\Documents\415\EnterpriseSystems\EnterpriseSystems.Data\bin\Debug\EnterpriseSystems.Data.pdb
+C:\Users\marcus little\Documents\415\EnterpriseSystems\EnterpriseSystems.Data\obj\Debug\EnterpriseSystems.Data.csprojResolveAssemblyReference.cache
+C:\Users\marcus little\Documents\415\EnterpriseSystems\EnterpriseSystems.Data\obj\Debug\EnterpriseSystems.Data.dll
+C:\Users\marcus little\Documents\415\EnterpriseSystems\EnterpriseSystems.Data\obj\Debug\EnterpriseSystems.Data.pdb

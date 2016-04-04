@@ -26,7 +26,7 @@ namespace UnitTests.Domain.Model.Order
             customerRequest.ReferenceNumbers.Add(new ReferenceNumberVO { ReferenceNumber = "2", ReferenceNumberType = ReferenceNumberTypes.BillOfLading });
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
-
+            actual = OrderFactory.SetsOrderNumber(customerRequest, actual);
             Assert.AreEqual("2", actual.OrderNumber.ToString());
         }
 
@@ -38,6 +38,7 @@ namespace UnitTests.Domain.Model.Order
             customerRequest.Stops.Add(new StopVO { StopNumber = 2, OrganizationName = "Bob Smith", AddressLine1 = "555 Somewhere Ave", AddressCityName = "Nowhere", AddressStateCode = "LA", AddressPostalCode = "76543" });
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
+            //actual = OrderFactory.SetsOrigin(customerRequest, actual);
 
             Assert.IsInstanceOfType(actual.Origin, typeof(Facility));
             Assert.AreEqual("Southeastern", actual.Origin.Name);
@@ -56,6 +57,7 @@ namespace UnitTests.Domain.Model.Order
             customerRequest.Stops.Add(new StopVO { StopNumber = 2, OrganizationName = "Bob Smith", AddressLine1 = "555 Somewhere Ave", AddressCityName = "Nowhere", AddressStateCode = "LA", AddressPostalCode = "76543" });
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
+            actual = OrderFactory.SetsOrigin(customerRequest, actual);
 
             Assert.IsInstanceOfType(actual.Destination, typeof(Customer));
             Assert.AreEqual("Bob Smith", actual.Destination.Name);
@@ -72,6 +74,7 @@ namespace UnitTests.Domain.Model.Order
             var customerRequest = new CustomerRequestVO { ConsumerClassificationType = ConsumerClassificationTypes.Residential };
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
+            actual = OrderFactory.SetsWorkType(customerRequest, actual);
 
             Assert.AreEqual(WorkType.Home, actual.WorkType);
         }
@@ -84,6 +87,7 @@ namespace UnitTests.Domain.Model.Order
             customerRequest.Stops.Add(new StopVO { StopNumber = 2, RoleType = StopRoleTypes.ShipTo });
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
+            actual = OrderFactory.SetsLegType(customerRequest, actual);
 
             Assert.AreEqual(LegType.Delivery, actual.LegType);
         }
@@ -96,6 +100,7 @@ namespace UnitTests.Domain.Model.Order
             customerRequest.Appointments.Add(new AppointmentVO { FunctionType = AppointmentFunctionTypes.Final, AppointmentBegin = DateTime.Today.AddDays(2), AppointmentEnd = DateTime.Today.AddDays(3) });
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
+            actual = OrderFactory.SetsScheduled(customerRequest, actual);
 
             Assert.AreEqual(DateTime.Today.AddDays(2), actual.Scheduled.Start);
             Assert.AreEqual(DateTime.Today.AddDays(3), actual.Scheduled.End);
@@ -108,6 +113,7 @@ namespace UnitTests.Domain.Model.Order
             customerRequest.Appointments.Add(new AppointmentVO { FunctionType = AppointmentFunctionTypes.Target, AppointmentBegin = DateTime.Today, AppointmentEnd = DateTime.Today.AddDays(1) });
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
+            actual = OrderFactory.SetsScheduled(customerRequest, actual);
 
             Assert.AreEqual(Appointment.Empty, actual.Scheduled);
         }
@@ -118,6 +124,7 @@ namespace UnitTests.Domain.Model.Order
             var customerRequest = new CustomerRequestVO { BusinessEntityKey = ProjectCodes.Southeastern };
 
             var actual = OrderFactory.GetInstance().Create(customerRequest);
+            actual = OrderFactory.SetsProject(customerRequest, actual);
 
             Assert.AreEqual(ProjectCodes.Southeastern, actual.Project);
         }

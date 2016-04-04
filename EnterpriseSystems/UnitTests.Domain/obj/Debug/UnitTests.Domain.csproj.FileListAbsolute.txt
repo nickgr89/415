@@ -8,3 +8,13 @@ C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\
 C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\UnitTests.Domain\obj\Debug\UnitTests.Domain.csprojResolveAssemblyReference.cache
 C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\UnitTests.Domain\obj\Debug\UnitTests.Domain.dll
 C:\Users\Nick\Documents\GitHub\415\EnterpriseSystems\UnitTests.Domain\obj\Debug\UnitTests.Domain.pdb
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\UnitTests.Domain.dll
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\UnitTests.Domain.pdb
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\EnterpriseSystems.Data.dll
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\EnterpriseSystems.Domain.dll
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\EnterpriseSystems.Data.pdb
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\bin\Debug\EnterpriseSystems.Domain.pdb
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\obj\Debug\UnitTests.Domain.csprojResolveAssemblyReference.cache
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\obj\Debug\UnitTests.Domain.dll
+C:\Users\marcus little\Documents\415\EnterpriseSystems\UnitTests.Domain\obj\Debug\UnitTests.Domain.pdb
